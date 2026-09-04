@@ -12,7 +12,7 @@ Please be respectful and follow our community standards.
 4. **Submit a pull request** with a clear description of your changes.
 
 ## Security
-If you find a security vulnerability, please report it privately by emailing `security@nthgn.example` instead of opening a public issue.
+If you find a security vulnerability, please report it privately by emailing `madscientiststudios.info@gmail.com` instead of opening a public issue.
 
 ## Style Guide
 - Follow standard Rust idiomatic style (`cargo fmt`).
