@@ -1,33 +1,37 @@
 #!/bin/bash
-# Universal Nthgn Installer
+# Nthgn System Dependency Checker & Installer
 set -e
 
-echo "--- Nthgn Universal Setup ---"
+echo "--- Nthgn Dependency Check ---"
 
 # Detect OS
 OS="$(uname -s)"
-case "${OS}" in
-    Linux*)     MACHINE=Linux;;
-    Darwin*)    MACHINE=Mac;;
-    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
-    *)          MACHINE="UNKNOWN"
-esac
-
-echo "Detected OS: $MACHINE"
+echo "Detected OS: $OS"
 
 # Check for Docker
 if ! command -v docker &> /dev/null; then
-    echo "Docker not found. Please install Docker from https://www.docker.com/"
-    exit 1
+    echo "Docker not installed. Attempting installation..."
+    if [[ "$OS" == "Linux" ]]; then
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
+    else
+        echo "Please install Docker manually from https://www.docker.com/"
+        exit 1
+    fi
+else
+    echo "Docker is installed."
 fi
 
-echo "Building Nthgn Node..."
+# Clone and build if necessary (run from project folder)
+echo "Ensuring project environment..."
+if [ ! -f "Dockerfile" ]; then
+    echo "Cloning latest Nthgn..."
+    git clone https://github.com/madscientiststudiosinfo-cmyk/nthng.git nthgn-temp
+    cd nthgn-temp
+fi
+
+echo "Building node..."
 docker build -t nthgn-node .
 
-# Run Node with custom port management
-PORT=${1:-5000}
-echo "Starting Nthgn Node on port $PORT..."
-docker run -d --name nthgn-node -p $PORT:5000 nthgn-node
-
-echo "Nthgn installed and running successfully!"
-echo "Access the Node management dashboard at: http://localhost:$PORT"
+echo "--- Nthgn Setup Complete ---"
+echo "Use './scripts/install_server.sh {private|public}' to start the server."
