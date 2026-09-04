@@ -1,20 +1,33 @@
 #!/bin/bash
-# Universal Installation for Nthgn
+# Universal Nthgn Installer
 set -e
-echo "Starting Nthgn Installation..."
 
-# Install dependencies (Docker/Rust assumed for production)
+echo "--- Nthgn Universal Setup ---"
+
+# Detect OS
+OS="$(uname -s)"
+case "${OS}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
+    *)          MACHINE="UNKNOWN"
+esac
+
+echo "Detected OS: $MACHINE"
+
+# Check for Docker
 if ! command -v docker &> /dev/null; then
-    echo "Installing Docker..."
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sh get-docker.sh
+    echo "Docker not found. Please install Docker from https://www.docker.com/"
+    exit 1
 fi
 
 echo "Building Nthgn Node..."
 docker build -t nthgn-node .
 
-echo "Running Nthgn Node..."
-docker run -d --name nthgn-node -p 8080:8080 nthgn-node
+# Run Node with custom port management
+PORT=${1:-5000}
+echo "Starting Nthgn Node on port $PORT..."
+docker run -d --name nthgn-node -p $PORT:5000 nthgn-node
 
-echo "Nthgn installed successfully!"
-echo "Access the desktop UI in your browser or electron wrapper."
+echo "Nthgn installed and running successfully!"
+echo "Access the Node management dashboard at: http://localhost:$PORT"
