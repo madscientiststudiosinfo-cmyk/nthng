@@ -1,0 +1,15 @@
+[package]
+name = "textingapp-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Cryptography
+ring = "0.17"
+pqcrypto-kyber = "0.8" # Post-quantum KEM
+sqlcipher = "0.1"
+
+# Networking
+libp2p = { version = "0.53", features = ["tcp", "dns", "noise", "yamux"] }
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
