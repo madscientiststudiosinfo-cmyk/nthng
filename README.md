@@ -1,36 +1,33 @@
-# Nthgn: The Ultimate Private, Open-Source Encrypted Messenger
+# Nthgn: Private & Secure Messaging
 
-**Nthgn** is a cutting-edge, desktop-first, privacy-focused open-source messaging application designed for absolute anonymity.
+**Nthgn** is the premier, privacy-focused open-source messaging platform for total anonymity.
 
-## How to Deploy
-### Server Deployment
-Manage your own Nthgn node with custom access controls.
-- **Start Private Server (Internal Access Only):**
-  ```bash
-  ./scripts/install_server.sh private
-  ```
-- **Start Public Server (Global Access):**
-  ```bash
-  ./scripts/install_server.sh public
-  ```
+## Quick Start
+Get Nthgn running on your system with ease:
 
-## Download Software
-Pre-compiled binaries are available for major platforms:
-- **[Windows](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.exe)**
-- **[macOS](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.dmg)**
-- **[Linux (.deb)](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.deb)**
+### Linux
+```bash
+curl -sSL https://raw.githubusercontent.com/madscientiststudiosinfo-cmyk/nthng/main/install.sh | bash
+```
 
-## Key Features
-- **Tor Routing:** Total anonymity.
-- **Post-Quantum Encryption:** Future-proof security.
-- **Access Management:** Private servers allow you to whitelist users.
-- **Zero-Persistence:** Your messages exist only in memory during the session.
+### macOS & Windows
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Clone the repository: `git clone https://github.com/madscientiststudiosinfo-cmyk/nthng.git`
+3. Navigate to folder and build: `docker build -t nthgn-node .`
+4. Run server:
+   - Private: `docker run -d -p 127.0.0.1:5000:5000 nthgn-node`
+   - Public: `docker run -d -p 0.0.0.0:5000:5000 nthgn-node`
 
-## Documentation
-See our [Protocol](docs/protocol.md) and [Security Audit](docs/security_audit.md).
+## Server Management
+Once running, manage your node:
+- **Start Private Server:** `./scripts/install_server.sh private`
+- **Start Public Server:** `./scripts/install_server.sh public`
 
-## Contributing
-Please see [CONTRIBUTING.md](CONTRIBUTING.md).
+## Downloads
+Pre-compiled binaries for desktop:
+- [Windows (.exe)](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.exe)
+- [macOS (.dmg)](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.dmg)
+- [Linux (.deb)](https://github.com/madscientiststudiosinfo-cmyk/nthng/releases/latest/download/nthgn.deb)
 
-## License
-MIT
+## License & Contributing
+Licensed under MIT. See [CONTRIBUTING.md](CONTRIBUTING.md).
